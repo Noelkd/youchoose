@@ -1,0 +1,17 @@
+ids  = ["R2F_hGwD26g", "UhjG47gtMCo","_z2O289Jemo"]
+ 
+
+for (var i = 0; i > ids.length; i++){
+    var xmlhttp = new XMLHttpRequest();
+    var cur_id = 
+    xmlhttp.open('GET', "http://gdata.youtube.com/feeds/api/videos/"+ids[i]+"?v=2&alt=json", true);
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState == 4) {
+            if(xmlhttp.status == 200) {
+                var obj = JSON.parse(xmlhttp.responseText);
+                var countryList = obj.countrylist;
+             }
+        }
+    };
+   }
+xmlhttp.send(null);

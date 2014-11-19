@@ -1,0 +1,20 @@
+<body>
+
+<script>
+"use strict";
+
+var ids  = ["R2F_hGwD26g", "UhjG47gtMCo","_z2O289Jemo"]
+function showResults(content){
+    console.log(content);
+    console.log(content.entry.title)
+};
+
+
+for (var i = 0; i < ids.length; ++i){
+    console.log(i)
+    var script = document.createElement('script');
+    script.src = "http://gdata.youtube.com/feeds/api/videos/"+ids[i]+"?v=2&alt=json&callback=showResults"
+    document.body.appendChild(script);
+ }
+</script>
+</body>

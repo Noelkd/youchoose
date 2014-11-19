@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <link rel="stylesheet" href="{{ static_url('css/styles.css') }}">
+  </head>
+
+  <body>
+    <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
+    <div id="player_holder"><div id="player"></div></div>
+    
+    <div id="inputdiv">
+  
+    <input 
+      id    = "input_url"
+      type  = "text" />
+
+    <input 
+      id="submitbutton" 
+      type="button" 
+      value="Submit" 
+      onclick="SubmitUrl()" />
+    </div>
+
+    <div id="currently_playing"/>
+    <script src="{{ static_url('js/mainview.js') }}"></script>
+  </body>
+</html>

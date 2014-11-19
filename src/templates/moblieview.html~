@@ -1,0 +1,32 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Youtube Song Playlist thingy</title>
+  <meta name="description" content="Moblie View">
+  <meta name="author" content="Noelkd">
+  <link rel="stylesheet" href="{{ static_url('css/styles.css') }}">
+</head>
+
+<body>
+
+<div id="inputdiv">
+  
+    <input 
+      id    = "input_url"
+      type  = "text" />
+
+    <input 
+      id="submitbutton" 
+      type="button" 
+      value="Submit" 
+      onclick="SubmitUrl()" />
+</div>
+
+<div id="currently_playing"/>
+
+<script src="{{ static_url("js/miniview.js"></script>
+</body>
+</html>
