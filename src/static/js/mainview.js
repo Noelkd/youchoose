@@ -77,46 +77,54 @@ function loadNextVideo() {
 };
 
 function UpdatePlayList(data){
-    var current_playlist = data["playlist"]
-    window.document.title = data["title"]
+    var current_playlist = data["playlist"];
+    window.document.title = data["title"];
     var playListDiv = document.getElementById("currently_playing")
-    var newplayListHtml = ""
-    newplayListHtml += "<div class='plHead'><div class='plHeadNum'>#</div><div class='plHeadTitle'>Title</div><div class='plHeadArtist'>Artist</div><div class='plHeadLength'>Length</div></div>"
-    newplayListHtml += "<ul id='plUL'>"
-    // TODO: MAKE THIS BETTER, MOST SONGS NAMES OVERLAP LIKE CRAZY
-    for (var i=0; i < current_playlist.length; i++){
-        var cur_item = current_playlist[i]
-        var line_txt = "<li class='plItem'>\n"
-        line_txt += "<div class='plNum'>" + cur_item["postion"] + "</div>"
-        line_txt += "<div class='plTitle'>" + cur_item["title"] + "</div>"
-        line_txt += "<div class='plArtist'>" + cur_item["artist"] + "</div>"
-        // TODO: SECONDS NEEDS TO BE ZFILLED
-        line_txt += "<div class='plLength'>" + Math.floor(cur_item["duration"] / 60)+ ":"+ cur_item["duration"] % 60  + "</div>"
-
-        newplayListHtml += line_txt
-        // SHOULD THIS BE SPLIT OUT SURELY IT SHOULD BE
-        if (data.start){
-            if (player.getPlayerState() == -1 && cur_item["postion"] == 1 ) {
-                console.log("WE ANIT PLAYING YET, lets get it started")
-                player.loadVideoById(cur_item["id"])
-        };
-        if (player.getPlayerState() == 0 && cur_item["postion"] == 1 ) {
-            console.log("STARTING A NEW TING")
-        player.loadVideoById(cur_item["id"])}
-        };
-        if (!data.start){
-            if (document.getElementById("player") != null) {
-                var player_div = document.getElementById("player");
-
-                player_div.parentNode.removeChild(player_div);
-                // WANT TO HAVE MULTI PLAYER MODE FOR CROSS CONTINENT FUN
-                //document.getElementById("player").style.display = 'none;';
-        };
-        };
-
+    // Add the header div
+    var plHead = playListDiv.appendChild(document.createElement("div"))
+    plHead.className = "plHead"
+    var header_items = ["plHeadNum","plHeadTitle","plHeadArtist","plHeadLength"]
+    var header_text  = ["#", "Title", "Artist", "Length"]
+    for (var i=0; i < header_items.length; i++) {
+        var head_item = plHead.appendChild(document.createElement("div"));
+        head_item.className = header_items[i];
+        head_item.appendChild(document.createTextNode(header_text[i]));
     };
-    newplayListHtml += "</ul>"
-    playListDiv.innerHTML = newplayListHtml
+
+    // Add the list to hold the songs
+    var play_list = playListDiv.appendChild(document.createElement("ul"));
+    play_list.id = "plUL";
+    var list_divs = ["plNum", "plTitle", "plArtist","plLength"];
+    var list_data = ["postion","title","artist","duration"];
+    for (var i=0; i < current_playlist.length; i++) {
+        // Creates the list item
+        var cur_item = current_playlist[i];
+        var list_item = play_list.appendChild(document.createElement("li"));
+        list_item.className = "plItem"
+        // Adds the actual information
+        for (var y=0; y < list_divs.length; y++) {
+            var div_item =  list_item.appendChild(document.createElement("div"));
+            // TODO: SORT OUT CSS
+            // TODO: Zfill duration
+            var text = (list_data[y] == "duration") ? Math.floor(cur_item["duration"] / 60) + ":"+ cur_item["duration"] % 60 : cur_item[list_data[y]]
+            div_item.className = list_divs[y];
+            div_item.appendChild(document.createTextNode(text));
+        } 
+        if (data.start) {
+              if (player.getPlayerState() == -1 && cur_item["postion"] == 1 ) {
+                  console.log("WE AINT PLAYING YET, lets get it started")
+                  player.loadVideoById(cur_item["id"])
+            } else if (player.getPlayerState() == 0 && cur_item["postion"] == 1 ) {
+                console.log("STARTING A NEW TING")
+                player.loadVideoById(cur_item["id"])
+            }
+        } else if (document.getElementById("player") != null) {
+            var player_div = document.getElementById("player");
+            player_div.parentNode.removeChild(player_div);
+            // WANT TO HAVE MULTI PLAYER MODE FOR CROSS CONTINENT FUN
+            //document.getElementById("player").style.display = 'none;';
+        }
+    };
 
 };
 
