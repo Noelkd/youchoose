@@ -80,6 +80,11 @@ function UpdatePlayList(data){
     var current_playlist = data["playlist"];
     window.document.title = data["title"];
     var playListDiv = document.getElementById("currently_playing")
+    // Clear out the div before refilling it
+    while (playListDiv.firstChild) {
+		  playListDiv.removeChild(playListDiv.firstChild);
+	}
+   
     // Add the header div
     var plHead = playListDiv.appendChild(document.createElement("div"))
     plHead.className = "plHead"
