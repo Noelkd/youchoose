@@ -15,4 +15,5 @@ This will create a new service running on port 8888, point your browser at `http
 * Allow multiple players to be sync'd up. (Think people in different places, rather than the same room)
 * Voting to delete, move/down que, next song
 * Better view on moblie platforms, currently doesn't look great on moblies.
-
+* Database to back up sessions / playlists for retrival later
+* Cull sessions with no users or songs left to play
